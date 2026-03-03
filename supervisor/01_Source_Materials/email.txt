@@ -1,0 +1,31 @@
+Dear Dr. Anis,
+
+Thank you for taking the time to meet with me earlier today. As requested, I have attached the soft copy of the project brief for your review.
+
+I have also set up the private GitHub repository for the project:
+
+https://github.com/YKAwarta/sw-adp.git
+
+To add you as a collaborator, could you please share your GitHub username or the email address associated with your GitHub account? I will send the invitation right away.
+
+Additionally, to address your previous question on datasets and machine learning models more specifically:
+
+Datasets:
+- OPSSAT-AD (ESA) - the primary benchmark, containing labeled anomalies across 9 satellite internal telemetry channels from ESA's satellites.
+- NOAA SWPC indices - space weather data, timestamped and freely accessible
+- ESA Anomaly Dataset - multi-mission labeled dataset for generalization testing
+
+Machine Learning Models:
+- Baselines: Isolation Forest and Matrix Profile (STUMPY).
+- Neural: LSTM Autoencoder for temporal pattern modeling
+- Calibration: Online conformal prediction on reconstruction error.
+
+The core experiment and purpose of this phase is a proof-of-concept & ablation study - running each model with telemetry-only vs. telemetry + space weather features - to demonstrate whether external context meaningfully improves anomaly detection.
+
+I should also mention that the abstract submission deadline for the 17th Annual Student Poster Competition is March 19th, so I am working to have preliminary results ready by then. The Boeing Engineering Design Expo follows in May, where the goal is a fully working demo quantized and runnable on a TinyML model runnable on an ESP32S3 device, assuming results are meaningfully positive.
+
+Please let me know if you have any questions or if there is anything you would like me to adjust.
+
+Best Regards, 
+Yousef Khalid Awartani 
+
