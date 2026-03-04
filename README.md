@@ -1,4 +1,4 @@
-# Space Weather-Aware Anomaly Detection for CubeSats & Satellites (SW-ADP)
+# Space Weather-Aware Anomaly Detection & Prognostics for CubeSats (SW-ADP)
 
 **Status:** Active - Phase 1 (Proof of Concept)
 
