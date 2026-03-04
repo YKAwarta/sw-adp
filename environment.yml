@@ -1,0 +1,50 @@
+# SW-ADP: Space Weather-Aware Anomaly Detection for CubeSats
+# Conda environment specification
+# Usage: conda env create -f environment.yml
+#        conda activate sw-adp
+
+name: sw-adp
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+
+dependencies:
+  # Core Python
+  - python=3.11
+
+  # PyTorch with CUDA (RTX 4060Ti 8GB)
+  # This installs PyTorch with CUDA 12.1 support
+  - pytorch>=2.2
+  - torchvision
+  - torchaudio
+  - pytorch-cuda=12.1
+
+  # Scientific computing
+  - numpy
+  - pandas
+  - scipy
+
+  # ML
+  - scikit-learn
+
+  # Visualization
+  - matplotlib
+  - seaborn
+
+  # Jupyter
+  - jupyter
+  - jupyterlab
+  - ipykernel
+
+  # Utilities
+  - tqdm
+  - pyyaml
+
+  # pip-only packages
+  - pip
+  - pip:
+    - stumpy          # Matrix Profile
+    - shap            # Explainability
+    - numba           # Required by STUMPY (JIT compilation)
