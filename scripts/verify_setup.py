@@ -83,7 +83,6 @@ def check_cuda():
     else:
         print("\n  [WARN] CUDA not available. Training will be CPU-only (very slow).")
         print("         Verify your NVIDIA driver and CUDA toolkit installation.")
-        print("         Expected GPU: RTX 4060Ti 8GB")
         return False
 
     return True
