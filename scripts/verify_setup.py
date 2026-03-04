@@ -67,7 +67,7 @@ def check_cuda():
         print(f"  GPU count:                 {device_count}")
         for i in range(device_count):
             name = torch.cuda.get_device_name(i)
-            mem_total = torch.cuda.get_device_properties(i).total_mem / (1024 ** 3)
+            mem_total = torch.cuda.get_device_properties(i).total_memory / (1024 ** 3)
             print(f"  GPU {i}: {name} ({mem_total:.1f} GB)")
 
         # Quick tensor test on GPU
