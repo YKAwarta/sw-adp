@@ -1,2 +1,3 @@
 data/opssat/
 data/space_weather/
+*.npz
