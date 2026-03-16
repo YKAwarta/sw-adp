@@ -1,7 +1,25 @@
+# Data (too large for repo — download via scripts/)
 data/processed/
 data/opssat/
 data/space_weather/
 data/egypt_data/
-context/
+
+# Claude Code
 .claude/
+
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Experiment artifacts
 *.npz
+
+# Local scratch
+context/
