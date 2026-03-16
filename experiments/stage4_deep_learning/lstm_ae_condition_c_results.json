@@ -1,0 +1,120 @@
+{
+  "model": "LSTM-AE",
+  "condition": "C_Conditional_Fusion",
+  "description": "Encode telem+SW (7ch), reconstruct telem only (1ch)",
+  "per_seed": [
+    {
+      "accuracy": 0.7495219885277247,
+      "precision": 0.39805825242718446,
+      "recall": 0.37272727272727274,
+      "f1": 0.38497652582159625,
+      "au_pr": 0.4147050254453488,
+      "roc_auc": 0.6232555580013208
+    },
+    {
+      "accuracy": 0.7839388145315488,
+      "precision": 0.4854368932038835,
+      "recall": 0.45454545454545453,
+      "f1": 0.4694835680751174,
+      "au_pr": 0.5479439137262734,
+      "roc_auc": 0.7042813119084305
+    },
+    {
+      "accuracy": 0.768642447418738,
+      "precision": 0.44660194174757284,
+      "recall": 0.41818181818181815,
+      "f1": 0.431924882629108,
+      "au_pr": 0.4274358963079982,
+      "roc_auc": 0.6808386528725512
+    }
+  ],
+  "summary": {
+    "accuracy_mean": 0.7674,
+    "accuracy_std": 0.0141,
+    "precision_mean": 0.4434,
+    "precision_std": 0.0357,
+    "recall_mean": 0.4152,
+    "recall_std": 0.0335,
+    "f1_mean": 0.4288,
+    "f1_std": 0.0346,
+    "au_pr_mean": 0.4634,
+    "au_pr_std": 0.06,
+    "roc_auc_mean": 0.6695,
+    "roc_auc_std": 0.034
+  },
+  "deltas_vs_A": {
+    "accuracy": {
+      "delta": -0.0242,
+      "p": 0.0188,
+      "sig": "*"
+    },
+    "precision": {
+      "delta": -0.0615,
+      "p": 0.0188,
+      "sig": "*"
+    },
+    "recall": {
+      "delta": -0.0576,
+      "p": 0.0188,
+      "sig": "*"
+    },
+    "f1": {
+      "delta": -0.0595,
+      "p": 0.0188,
+      "sig": "*"
+    },
+    "au_pr": {
+      "delta": -0.0502,
+      "p": 0.1681,
+      "sig": "ns"
+    },
+    "roc_auc": {
+      "delta": -0.0491,
+      "p": 0.1854,
+      "sig": "ns"
+    }
+  },
+  "deltas_vs_B": {
+    "accuracy": {
+      "delta": 0.0867,
+      "p": 0.0111,
+      "sig": "*"
+    },
+    "precision": {
+      "delta": 0.2201,
+      "p": 0.0111,
+      "sig": "*"
+    },
+    "recall": {
+      "delta": 0.2061,
+      "p": 0.0111,
+      "sig": "*"
+    },
+    "f1": {
+      "delta": 0.2128,
+      "p": 0.0111,
+      "sig": "*"
+    },
+    "au_pr": {
+      "delta": 0.2199,
+      "p": 0.0352,
+      "sig": "*"
+    },
+    "roc_auc": {
+      "delta": 0.1747,
+      "p": 0.0386,
+      "sig": "*"
+    }
+  },
+  "seeds": [
+    42,
+    123,
+    456
+  ],
+  "hyperparams": {
+    "batch_size": 32,
+    "lr": 0.001,
+    "epochs": 100,
+    "patience": 10
+  }
+}

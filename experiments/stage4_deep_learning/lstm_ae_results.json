@@ -1,0 +1,133 @@
+{
+  "model": "LSTM-AE",
+  "architecture": "{'input_dim': 1, 'hidden_dim': 64, 'n_layers': 2, 'dropout': 0.1}",
+  "condition_A": {
+    "label": "LSTM-AE Telem Only",
+    "per_seed": [
+      {
+        "accuracy": 0.7724665391969407,
+        "precision": 0.4563106796116505,
+        "recall": 0.42727272727272725,
+        "f1": 0.4413145539906103,
+        "au_pr": 0.4384188959293941,
+        "roc_auc": 0.7172132951793969
+      },
+      {
+        "accuracy": 0.8030592734225621,
+        "precision": 0.5339805825242718,
+        "recall": 0.5,
+        "f1": 0.5164319248826291,
+        "au_pr": 0.5774377145716278,
+        "roc_auc": 0.7490204710543693
+      },
+      {
+        "accuracy": 0.7992351816443595,
+        "precision": 0.5242718446601942,
+        "recall": 0.4909090909090909,
+        "f1": 0.5070422535211268,
+        "au_pr": 0.5249654562495123,
+        "roc_auc": 0.6894783182918777
+      }
+    ],
+    "summary": {
+      "accuracy_mean": 0.7916,
+      "accuracy_std": 0.0136,
+      "precision_mean": 0.5049,
+      "precision_std": 0.0346,
+      "recall_mean": 0.4727,
+      "recall_std": 0.0324,
+      "f1_mean": 0.4883,
+      "f1_std": 0.0334,
+      "au_pr_mean": 0.5136,
+      "au_pr_std": 0.0573,
+      "roc_auc_mean": 0.7186,
+      "roc_auc_std": 0.0243
+    }
+  },
+  "condition_B": {
+    "label": "LSTM-AE Telem + SW",
+    "per_seed": [
+      {
+        "accuracy": 0.6806883365200764,
+        "precision": 0.22330097087378642,
+        "recall": 0.20909090909090908,
+        "f1": 0.215962441314554,
+        "au_pr": 0.2462161020713617,
+        "roc_auc": 0.5175104556460489
+      },
+      {
+        "accuracy": 0.6845124282982792,
+        "precision": 0.23300970873786409,
+        "recall": 0.21818181818181817,
+        "f1": 0.22535211267605634,
+        "au_pr": 0.24397310776890901,
+        "roc_auc": 0.48145498569227385
+      },
+      {
+        "accuracy": 0.6768642447418738,
+        "precision": 0.21359223300970873,
+        "recall": 0.2,
+        "f1": 0.20657276995305165,
+        "au_pr": 0.2402752025798297,
+        "roc_auc": 0.48517499449702833
+      }
+    ],
+    "summary": {
+      "accuracy_mean": 0.6807,
+      "accuracy_std": 0.0031,
+      "precision_mean": 0.2233,
+      "precision_std": 0.0079,
+      "recall_mean": 0.2091,
+      "recall_std": 0.0074,
+      "f1_mean": 0.216,
+      "f1_std": 0.0077,
+      "au_pr_mean": 0.2435,
+      "au_pr_std": 0.0024,
+      "roc_auc_mean": 0.4947,
+      "roc_auc_std": 0.0162
+    }
+  },
+  "deltas": {
+    "accuracy": {
+      "delta": -0.1109,
+      "p": 0.0074,
+      "sig": "**"
+    },
+    "precision": {
+      "delta": -0.2816,
+      "p": 0.0074,
+      "sig": "**"
+    },
+    "recall": {
+      "delta": -0.2636,
+      "p": 0.0074,
+      "sig": "**"
+    },
+    "f1": {
+      "delta": -0.2723,
+      "p": 0.0074,
+      "sig": "**"
+    },
+    "au_pr": {
+      "delta": -0.2701,
+      "p": 0.0227,
+      "sig": "*"
+    },
+    "roc_auc": {
+      "delta": -0.2239,
+      "p": 0.0094,
+      "sig": "**"
+    }
+  },
+  "seeds": [
+    42,
+    123,
+    456
+  ],
+  "hyperparams": {
+    "batch_size": 32,
+    "lr": 0.001,
+    "epochs": 100,
+    "patience": 10
+  }
+}
