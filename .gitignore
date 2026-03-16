@@ -1,4 +1,5 @@
 data/processed/
 data/opssat/
 data/space_weather/
+data/egypt_data/
 *.npz
