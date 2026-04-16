@@ -25,3 +25,8 @@ venv/
 
 # Local scratch
 context/
+
+# Personal planning docs (contain sensitive content re: supervisor/judges)
+SW-ADP_Master_Context_Doc.md
+SW-ADP_Phase1_Living_Document.md
+SW-ADP_Phase2_Living_Document.md
