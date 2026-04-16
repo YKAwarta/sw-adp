@@ -38,8 +38,8 @@ PATIENCE = 10
 
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 TENSOR_PATH = os.path.join(REPO_ROOT, 'data', 'processed', 'track_b_tensors.npz')
-OUTPUT_DIR = os.path.join(REPO_ROOT, 'experiments', 'stage4_deep_learning')
-IF_RESULTS_PATH = os.path.join(REPO_ROOT, 'experiments', 'stage3_baselines', 'if_ablation_table.csv')
+OUTPUT_DIR = os.path.join(REPO_ROOT, 'experiments', 'phase1', 'stage4_deep_learning')
+IF_RESULTS_PATH = os.path.join(REPO_ROOT, 'experiments', 'phase1', 'stage3_baselines', 'if_ablation_table.csv')
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 

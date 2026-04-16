@@ -18,7 +18,7 @@ warnings.filterwarnings('ignore')
 # ── Configuration ──────────────────────────────────────────────────────
 TENSOR_PATH = os.path.join('data', 'processed', 'track_b_tensors.npz')
 TRACK_A_SW_PATH = os.path.join('data', 'processed', 'track_a_telem_sw.csv')
-OUTPUT_DIR = os.path.join('experiments', 'stage4_deep_learning')
+OUTPUT_DIR = os.path.join('experiments', 'phase1', 'stage4_deep_learning')
 SEEDS = [42, 123, 456, 789, 1024]
 
 # ── Try to find files (handle running from repo root or src/models/) ──

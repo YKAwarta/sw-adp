@@ -45,8 +45,9 @@ SW_FEATURES = [
     'sw_imf_bz_gsm_mean', 'sw_imf_bz_gsm_min', 'sw_imf_bz_gsm_std'
 ]
 
-DATA_DIR = '/mnt/project'
-OUTPUT_DIR = '/home/claude/experiments/stage3_baselines'
+REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+DATA_DIR = os.path.join(REPO_ROOT, 'data', 'processed')
+OUTPUT_DIR = os.path.join(REPO_ROOT, 'experiments', 'phase1', 'stage3_baselines')
 
 
 def load_data():

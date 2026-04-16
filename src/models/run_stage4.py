@@ -7,7 +7,7 @@ Usage:
     python run_stage4.py
 
 Expected runtime with RTX 4060Ti: ~10-15 minutes total.
-Outputs saved to experiments/stage4_deep_learning/
+Outputs saved to experiments/phase1/stage4_deep_learning/
 """
 
 import json
@@ -41,9 +41,9 @@ PATIENCE = 10
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 TENSOR_PATH = os.path.join(REPO_ROOT, "data", "processed", "track_b_tensors.npz")
 TRACK_A_SW_PATH = os.path.join(REPO_ROOT, "data", "processed", "track_a_telem_sw.csv")
-OUTPUT_DIR = os.path.join(REPO_ROOT, "experiments", "stage4_deep_learning")
+OUTPUT_DIR = os.path.join(REPO_ROOT, "experiments", "phase1", "stage4_deep_learning")
 IF_RESULTS_PATH = os.path.join(
-    REPO_ROOT, "experiments", "stage3_baselines", "if_ablation_table.csv"
+    REPO_ROOT, "experiments", "phase1", "stage3_baselines", "if_ablation_table.csv"
 )
 
 os.makedirs(OUTPUT_DIR, exist_ok=True)
