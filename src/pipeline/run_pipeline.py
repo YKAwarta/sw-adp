@@ -31,8 +31,8 @@ import time
 import argparse
 from pathlib import Path
 
-# Ensure src/ is on the path
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+# Ensure src/ is on the path so `pipeline` resolves as a package
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from pipeline import config
 from pipeline.step2_clean_noaa import build_sw_hourly

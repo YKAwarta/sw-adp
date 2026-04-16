@@ -10,12 +10,12 @@ RAW_DATA_DIR = PROJECT_ROOT / "data"
 PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
 FIGURES_DIR = PROJECT_ROOT / "figures"
 
-# Raw file names
-SEGMENTS_CSV = RAW_DATA_DIR / "segments.csv"
-DATASET_CSV = RAW_DATA_DIR / "dataset.csv"
-OMNI_HOURLY_CSV = RAW_DATA_DIR / "omni_hourly.csv"
-KP_F107_DAILY_CSV = RAW_DATA_DIR / "kp_f107_daily.csv"
-CELESTRAK_CSV = RAW_DATA_DIR / "celestrak_sw_5yr.csv"
+# Raw file names (download scripts organize by source)
+SEGMENTS_CSV = RAW_DATA_DIR / "opssat" / "segments.csv"
+DATASET_CSV = RAW_DATA_DIR / "opssat" / "dataset.csv"
+OMNI_HOURLY_CSV = RAW_DATA_DIR / "space_weather" / "omni_hourly.csv"
+KP_F107_DAILY_CSV = RAW_DATA_DIR / "space_weather" / "kp_f107_daily.csv"
+CELESTRAK_CSV = RAW_DATA_DIR / "space_weather" / "raw" / "celestrak_sw_5yr.csv"
 
 # ── OPSSAT-AD Constants ────────────────────────────────────────────────
 # Telemetry period (D-11)

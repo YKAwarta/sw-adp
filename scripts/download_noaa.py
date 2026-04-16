@@ -24,7 +24,7 @@ DATA_DIR = Path("data") / "space_weather"
 # ---------------------------------------------------------------------------
 # Source 1: CelesTrak (Kp, Ap, F10.7)
 # ---------------------------------------------------------------------------
-CELESTRAK_URL = "https://celestrak.com/SpaceData/SW-Last5Years.csv"
+CELESTRAK_URL = "https://celestrak.org/SpaceData/SW-Last5Years.csv"
 CELESTRAK_FILE = "celestrak_sw_5yr.csv"
 
 # ---------------------------------------------------------------------------
