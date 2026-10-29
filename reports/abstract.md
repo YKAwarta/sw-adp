@@ -1,5 +1,0 @@
-# Space Weather-Aware Anomaly Detection for CubeSats: A Systematic Ablation Study on Feature Fusion Strategies
-
-(991/1000 characters)
-
-This study investigates whether fusing space weather data with CubeSat telemetry improves anomaly detection. Four models (Isolation Forest, Matrix Profile, LSTM Autoencoder, TCN Autoencoder) were evaluated under three conditions (telemetry-only, naive concatenation, conditional asymmetric encoding) on ESA's OPS-SAT benchmark aligned with NOAA space weather indices. Naive concatenation degraded all four models (p < 0.01); TCN Autoencoder F1 dropped from 0.604 to 0.222. Two failure mechanisms were identified: reconstruction error dilution in autoencoders and feature selection dilution in tree-based models. Conditional fusion, encoding all channels but reconstructing only telemetry, recovered substantially but did not surpass telemetry-only baselines under moderate storm conditions. The telemetry-only TCN Autoencoder F1 of 0.604 is, to our knowledge, the highest unsupervised result on this benchmark. Fusion architecture determines whether external features help or harm detection.
