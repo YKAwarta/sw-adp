@@ -1,87 +1,92 @@
-# Space Weather-Aware Anomaly Detection & Prognostics for CubeSats (SW-ADP)
+# Space Weather-Aware Anomaly Detection for CubeSats (SW-ADP)
 
-**Status:** Phase 1 Complete — 1st Place, College of Engineering Division, Alfaisal University Research & Design Expo (April 2, 2026). Phase 2 in progress.
+The first study, a controlled ablation on ESA's OPSSAT-AD benchmark, is complete. It won 1st place in the College of Engineering division of Alfaisal University's Research and Design Expo (April 2026). A revised manuscript is in preparation, and a follow-up study is planned for the International Astronautical Congress (IAC 2027).
 
 ## Overview
 
-Traditional CubeSat anomaly detectors analyze only onboard telemetry. When a geomagnetic storm strikes, the detector sees the symptom but not the cause. SW-ADP investigates whether fusing space weather indices (Kp, Dst, F10.7, solar wind speed, proton density, IMF Bz) with CubeSat telemetry improves anomaly detection vs. telemetry-only baselines.
+SW-ADP tests whether adding space weather indices (Kp, Dst, F10.7, solar wind speed, proton density and IMF Bz) to CubeSat telemetry improves unsupervised anomaly detection compared with telemetry alone.
 
-**Hypothesis:** Space weather fusion improves anomaly detection across all model classes tested.
+The hypothesis, stated before any experiments, was that space weather fusion would improve detection for every model class tested. The results on OPSSAT-AD do not support it.
 
-**Phase 1 result:** The hypothesis is *not supported* on ESA's OPSSAT-AD benchmark. The project's contribution is three findings that emerged from the systematic ablation:
+1. Naive concatenation of the space weather features lowered F1 for all four detectors. All four drops remain significant after Holm correction, and ROC-AUC fell to between 0.495 and 0.510, close to chance.
+2. A conditional design, in which the encoder sees all seven channels and the decoder reconstructs only telemetry, recovered part of the loss. LSTM autoencoder F1 rose from 0.216 to 0.429 (Holm-adjusted p = 0.044) and TCN autoencoder F1 from 0.222 to 0.376 (adjusted p = 0.22, not significant). Neither reached its telemetry-only baseline.
+3. The proposed cause of the loss is dilution. In the autoencoders, six of the seven channels in the anomaly score are smooth index channels that are never labeled anomalous, so well-reconstructed indices can mask high error on the telemetry channel. In Isolation Forest, the 17 added index statistics make up about half of the features, so more random splits are wasted. Neither mechanism has been isolated experimentally yet.
+4. OPSSAT-AD cannot settle whether fusion can help. Its anomalies are labeled by signal shape, OPS-SAT was an experimental platform that expected frequent software faults, and the recording period (January to June 2022) saw only moderate geomagnetic activity, with Kp peaking at 6.7.
 
-1. Naive fusion (concatenate SW features, reconstruct everything) degrades every model class — p < 0.001 across IF, MP+IF, LSTM-AE, and TCN-AE.
-2. Conditional/asymmetric fusion (encode all channels, reconstruct telemetry only) recovers most of the lost performance, proving fusion *architecture* matters more than whether you fuse.
-3. TCN-AE telemetry-only reaches F1 = 0.604 — the best unsupervised result reported on OPSSAT-AD to date.
+The telemetry-only TCN autoencoder (F1 0.604, AU-PR 0.677, ROC-AUC 0.753) was the strongest detector in this study. Among the unsupervised models compared in the revised manuscript, it is second on AU-PR to MO-GAAL (AU-PR 0.779, Ruszczak et al., 2025).
 
-## Phase 1 Models
+## Models and conditions
 
-| Component | Method | Role |
-|-----------|--------|------|
-| Baseline | Isolation Forest | Statistical point-in-time benchmark |
-| Baseline | Matrix Profile (STUMPY) + IF | Temporal pattern benchmark |
-| Deep Learning | LSTM Autoencoder (PyTorch) | Established DL comparison |
-| **Core** | **TCN Autoencoder (PyTorch)** | **Primary contribution — edge-deployable** |
+| Detector | Conditions tested |
+|----------|-------------------|
+| Isolation Forest | A, B |
+| Matrix Profile (STUMPY) + Isolation Forest | A, B |
+| LSTM autoencoder (PyTorch) | A, B, C |
+| TCN autoencoder (PyTorch) | A, B, C |
 
-## Phase 1 Results
+Condition A uses telemetry only. Condition B concatenates the space weather indices with telemetry. Condition C is the conditional design, tested on the autoencoders only.
 
-Systematic ablation: 4 models × 3 fusion conditions (telemetry-only, naive SW concat, conditional SW fusion) on OPSSAT-AD.
+## Results (F1)
 
-| Model | Telem-Only F1 | Naive Fusion F1 | Conditional F1 |
-|-------|---------------|------------------|-----------------|
-| Isolation Forest | 0.306 | 0.255 (−16.7%) | — |
-| MP + IF | 0.448 | 0.268 (−40.2%) | — |
-| LSTM-AE | 0.488 | 0.216 (−55.7%) | 0.429 |
-| **TCN-AE** | **0.604** | 0.222 (−63.2%) | 0.376 |
+| Model | A: telemetry only | B: naive fusion | C: conditional |
+|-------|-------------------|-----------------|----------------|
+| Isolation Forest | 0.306 | 0.255 | not tested |
+| MP + IF | 0.448 | 0.268 | not tested |
+| LSTM autoencoder | 0.488 | 0.216 | 0.429 |
+| TCN autoencoder | 0.604 | 0.222 | 0.376 |
 
-**TCN-AE telem-only:** F1 = 0.604, AU-PR = 0.677, ROC-AUC = 0.753.
+Values are means over seeds: five for Isolation Forest and MP + IF, three for the autoencoders. Conditions are compared with paired t-tests, Holm-corrected over eight tests. Three seeds give little statistical power, so the autoencoders will be rerun with more seeds.
 
-Phase 1 technical artifact: `reports/SW-ADP_Phase1_Paper.pdf`. Winning poster: `reports/competition/SW-ADP Poster.pdf` (submission code `UGE0054AWARTANI2026`). Tagged at `v1.0-phase1`.
+## Reports
+
+- `reports/competition/SW-ADP Poster.pdf`: the winning poster (April 2026).
+- The original internal report (March 2026) and competition abstract (April 2026) are kept at tag `v1.0-phase1` for the record. The revised manuscript supersedes them. The revision corrects the statistics (Holm correction instead of uncorrected p-values), credits the space weather data to NASA OMNI2 and CelesTrak rather than NOAA, treats the failure mechanisms as proposed rather than identified, and withdraws the claim that the TCN autoencoder is the best unsupervised result on OPSSAT-AD.
 
 ## Datasets
 
-- **OPSSAT-AD** (ESA / Zenodo) — primary benchmark. 2,098 labeled segments across 7 channels, Jan–Jun 2022 UTC, ~20% anomaly rate. Confirmed (via exhaustive search) as the only public satellite telemetry AD dataset with real timestamps, expert anomaly annotations, and open access.
-- **NOAA OMNI2** — hourly Kp, Dst, F10.7, solar wind speed, proton density, IMF Bz. 100% alignment with OPSSAT telemetry via forward-fill (discrete indices) + linear interpolation (continuous measurements).
+- **OPSSAT-AD** (ESA, on Zenodo, described by Ruszczak et al., 2025): telemetry from the OPS-SAT 3U CubeSat, recorded between 4 January and 2 June 2022 UTC. After two sparse channels are excluded, 2,098 labeled segments from seven channels remain, of which 434 (20.7%) are anomalous. It was chosen because it combines real UTC timestamps, expert anomaly labels and open access, which alignment with space weather data requires.
+- **Space weather indices** from NASA OMNI2 and CelesTrak, aligned to each telemetry segment by forward-filling the discrete indices and linearly interpolating the continuous measurements.
 
-## Roadmap
+## Planned follow-up study (IAC 2027)
 
-**Phase 1 — Proof of Concept** (March 2026) ✅
-Systematic 4-model × 3-condition ablation on OPSSAT-AD. 1st-place win, internal research paper drafted as Phase 2 foundation.
+The follow-up study planned for the International Astronautical Congress 2027 will:
 
-**Phase 2 — Conference Paper** (April – November 2026)
-Adds semi-synthetic validation (real OPSSAT waveforms + injected anomalies with known SW-correlated vs SW-independent ground truth), conformal prediction calibration, and ≥10-seed statistical rigor. **Target:** IEEE Aerospace Conference 2027 (AeroConf), November 2026 deadline.
+- test directly whether the labeled anomalies depend on the space weather state,
+- run control experiments on the proposed dilution mechanisms, including random-feature controls and rescoring the autoencoders on telemetry error alone,
+- inject semi-synthetic anomalies into real OPSSAT waveforms, with their occurrence tied to space weather, to test whether the conditional design can use context when the labels do depend on it,
+- rerun the autoencoders with more seeds.
 
-**Phase 3 — Journal Paper** (2027)
-Real satellite telemetry validation (pending NARSS / ESOC / OPS-SAT VOLT outreach), TinyML edge deployment on ESP32-S3, full PRISMA literature review. **Target:** Acta Astronautica or IEEE Transactions on Aerospace and Electronic Systems (TAES).
+Later work, after IAC 2027: storm-period and real satellite telemetry, and on-device deployment on an ESP32-S3 microcontroller.
 
-## Repository Structure
+## Repository structure
+
+`experiments/phase1` holds the completed ablation. `experiments/phase2` holds the follow-up study.
 
 ```
 sw-adp/
 ├── src/
 │   ├── pipeline/          # Data ingestion, cleaning, alignment, EDA
 │   ├── models/            # IF, MP, LSTM-AE, TCN-AE, conditional variants
-│   ├── synthetic/         # Phase 2: semi-synthetic anomaly injection
-│   └── calibration/       # Phase 2: conformal prediction
+│   ├── synthetic/         # Follow-up study: semi-synthetic anomaly injection
+│   └── calibration/       # Follow-up study: threshold calibration
 ├── experiments/
-│   ├── phase1/            # Frozen Phase 1 results (stage3_baselines, stage4_deep_learning, egyptsat_exploration)
-│   └── phase2/            # Synthetic / conformal / 10-seed OPSSAT rerun
-├── figures/               # Publication-quality EDA and results plots
-├── reports/               # Phase 1 paper, literature scan, abstract, winning poster
+│   ├── phase1/            # Frozen results of the completed ablation
+│   └── phase2/            # Follow-up study experiments
+├── figures/               # EDA and results plots
+├── reports/               # Literature scan, abstract, winning poster
 ├── scripts/               # Data download & verification
-├── supervisor/            # Supervisor feedback & communications
 ├── notebooks/             # Jupyter notebooks (placeholder)
 └── data/                  # Raw & processed data (git-ignored)
 ```
 
-## Environment Setup
+## Environment setup
 
 ```bash
 conda env create -f environment.yml
 conda activate sw-adp
 ```
 
-## Key Commands
+## Key commands
 
 ```bash
 # Download datasets (from repo root)
@@ -91,7 +96,7 @@ python scripts/download_noaa.py
 # Full data pipeline (clean, align, build tracks, EDA)
 python src/pipeline/run_pipeline.py [--seq-len 128]
 
-# Phase 1 model runs (from src/models/)
+# Model runs for the completed ablation (from src/models/)
 cd src/models
 python run_stage4.py          # LSTM-AE + TCN-AE ablation (Conditions A & B)
 python run_condition_c.py     # Conditional fusion (Condition C)
@@ -102,6 +107,6 @@ python run_mp_baseline.py     # Matrix Profile + IF baseline
 
 Python 3.11 | PyTorch (CUDA 12.1) | scikit-learn | STUMPY | pandas | numpy | matplotlib
 
-## Owner & Supervisor
+## Owner and supervisor
 
-Yousef K. Awartani (owner) · Dr. Anis Koubaa (supervisor, confirmed March 4, 2026) · Alfaisal University, Riyadh.
+Yousef K. Awartani (owner) · Dr. Anis Koubaa (supervisor) · Alfaisal University, Riyadh.
